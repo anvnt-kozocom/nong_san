@@ -20,12 +20,6 @@ class UserFactory extends Factory
    */
   public function definition()
   {
-    return [
-      //
-      'name' => 'Nguyễn An',
-      'email' => 'anvo8222@gmail.com',
-      'password' => hash::make('abc123'),
-      'status' => 'active',
-    ];
+    return [];
   }
 }
