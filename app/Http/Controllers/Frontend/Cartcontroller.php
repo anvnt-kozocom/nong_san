@@ -151,36 +151,40 @@ class Cartcontroller extends Controller
       'cart' => session()->get('cart'),
       'totalPrice' => totalPriceAllCart(),
     ];
-    $userId = Auth::id();
-    $order = new OrderModel();
-    $order->user_id = $userId;
-    $order->name = $name;
-    $order->address = $address;
-    $order->phone = $phone;
-    $order->email = $email;
-    $order->description = $content;
-    $order->total = totalPriceAllCart();
-    if ($order->save()) {
-      $orderId = $order->id;
-      foreach ($data['cart'] as $item) {
-        $orderDetail = new OrderDetailModel();
-        $orderDetail->order_id = $orderId;
-        $orderDetail->product_id = $item['idProduct'];
-        $orderDetail->quantity = $item['quantity'];
-        $orderDetail->price = $item['price'];
-        $orderDetail->sale = $item['sale'];
-        if ($orderDetail->save()) {
-          $product = ProductModel::findOrFail($item['idProduct']);
-          $product->quantity = $product->quantity - $item['quantity'];
-          $product->update();
+    if ($data['cart']) {
+      $userId = Auth::id();
+      $order = new OrderModel();
+      $order->user_id = $userId;
+      $order->name = $name;
+      $order->address = $address;
+      $order->phone = $phone;
+      $order->email = $email;
+      $order->description = $content;
+      $order->total = totalPriceAllCart();
+      if ($order->save()) {
+        $orderId = $order->id;
+        foreach ($data['cart'] as $item) {
+          $orderDetail = new OrderDetailModel();
+          $orderDetail->order_id = $orderId;
+          $orderDetail->product_id = $item['idProduct'];
+          $orderDetail->quantity = $item['quantity'];
+          $orderDetail->price = $item['price'];
+          $orderDetail->sale = $item['sale'];
+          if ($orderDetail->save()) {
+            $product = ProductModel::findOrFail($item['idProduct']);
+            $product->quantity = $product->quantity - $item['quantity'];
+            $product->update();
+          }
         }
+        Mail::to($request->email)->send(new NotifyMail($data));
+        session()->forget('cart');
+        return redirect(route('cart'))->with([
+          'checkout-success' =>
+          'Đặt hàng thành công! Vui lòng kiểm tra hoá đơn tại Email và xem thông tin đơn hàng tại <a href="/user/order">đây</a> ',
+        ]);
       }
-      Mail::to($request->email)->send(new NotifyMail($data));
-      session()->forget('cart');
-      return redirect(route('cart'))->with([
-        'checkout-success' =>
-        'Đặt hàng thành công! Vui lòng kiểm tra hoá đơn tại Email và xem thông tin đơn hàng tại <a href="/user/order">đây</a> ',
-      ]);
+    } else {
+      return redirect(route('cart'));
     }
   }
 }

@@ -26,9 +26,8 @@
       <div id="menu-bar" class="fas fa-bars"></div>
       <nav class="navbar">
         <a href="{{ route('home') }}">Trang chủ</a>
-        <a href="#category">Sản phẩm</a>
-        <a href="">Liên hệ</a>
-        <a href="">Giới thiệu</a>
+        <a href="{{ route('search-product') }}">Sản phẩm</a>
+        <a href="#footer">Liên hệ</a>
       </nav>
       <div class="icons">
         <a href="{{ route('cart') }}" style="position:relative" class="fas fa-shopping-cart">

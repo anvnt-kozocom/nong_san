@@ -6,6 +6,9 @@
   --black: #2c2c54;
 }
 
+html{
+  scroll-behavior: smooth !important; 
+}
 * {
   font-family: "Nunito", sans-serif;
   margin: 0;
@@ -15,6 +18,8 @@
   border: none;
   text-decoration: none;
   transition: all 0.2s linear;
+  scroll-behavior: smooth !important; 
+  
 }
 
 *::selection {

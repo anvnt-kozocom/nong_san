@@ -37,14 +37,10 @@ return [
     'smtp' => [
       'transport' => 'smtp',
       'host' => env('MAIL_HOST'),
-      // 'host' => 'smtp.gmail.com',
       'port' => env('MAIL_PORT', 587),
-      // 'port' => 587,
       'encryption' => env('MAIL_ENCRYPTION', 'tls'),
       'username' => env('MAIL_USERNAME'),
-      // 'username' => 'anvo8222@gmail.com',
       'password' => env('MAIL_PASSWORD'),
-      // 'password' => 'oworxyvbpftdsfcg',
       'timeout' => null,
       'local_domain' => env('MAIL_EHLO_DOMAIN'),
     ],
@@ -97,7 +93,7 @@ return [
 
   'from' => [
     // 'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-    'address' => 'anvo8222@gmail.com',
+    'address' => env('MAIL_USERNAME'),
     // 'name' => env('MAIL_FROM_NAME', 'Example'),
     'name' => env('MAIL_FROM_NAME'),
   ],

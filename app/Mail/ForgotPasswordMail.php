@@ -32,7 +32,7 @@ class ForgotPasswordMail extends Mailable
   public function envelope()
   {
     return new Envelope(
-      from: new Address('anvo8222@gmail.com', 'Nguyen An'),
+      from: new Address(env('MAIL_USERNAME'), 'Nông Trại Organic'),
       subject: 'Nông Trại Organic',
     );
   }

@@ -49,7 +49,7 @@
   @extends('frontend.layouts.app')
   @section('content')
     <section class="list-product" id="list-product">
-      <h1 class="heading">Kết quả tìm kiếm</h1>
+      <h1 class="heading">Các sản phẩm được tìm thấy</h1>
       <div class="search" style="margin:20px 0">
         <h1>Search Form</h1>
         <form action="{{ route('search-product') }}">
